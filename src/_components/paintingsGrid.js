@@ -35,7 +35,8 @@ export default function PaintingsGrid({ paintings }) {
                         <ul>
                             <li>
                                 <button
-                                    onClick={() => setType("")}
+                                    onClick={() => {filter.name == "Type" ? setType('') : setMovement('')}}
+                                    className="cursor-pointer hover:underline"
                                 >
                                     Tous les {filter.name.toLowerCase()}
                                 </button>
@@ -43,7 +44,8 @@ export default function PaintingsGrid({ paintings }) {
                             {filter.options.map((option) => (
                                 <li key={option}>
                                     <button
-                                        onClick={() => setType(option)}
+                                        onClick={() => {filter.name == "Type" ? setType(option) : setMovement(option)}}
+                                        className="cursor-pointer hover:underline"
                                     >
                                         {option}
                                     </button>
@@ -54,7 +56,7 @@ export default function PaintingsGrid({ paintings }) {
                 ))}
             </div>
 
-            <div>
+            <div className="grid grid-cols-3 gap-4">
                 {filteredPaintings.map((painting) => (
                     <PaintingCard key={painting.id} painting={painting} />
                 ))}

@@ -10,15 +10,6 @@ export default async function Page() {
             <section>
                 <h1>Toutes les peintures</h1>
                 <PaintingsGrid paintings={paintings} />
-                {paintings.map((painting) => (
-                    <ul key={painting.id} className="grid grid-cols-3 gap-4">
-                        <li>
-                            <Link href={`/paintings/${painting.id}`}>
-                                <h2>{painting.title}</h2>
-                            </Link>
-                        </li>
-                    </ul>
-                ))}
             </section>
         </main>
     )
