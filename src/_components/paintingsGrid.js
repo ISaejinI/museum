@@ -1,17 +1,64 @@
+"use client";
+
+import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 
-import { Filters } from "@/_helpers/FilterHelpers";
-import FilterBar from "@/_components/filterBar";
+import PaintingCard from "./paintingCard";
 
 export default function PaintingsGrid({ paintings }) {
-    const filters = useMemo(() => {
-        return Filters(paintings);
-    }, [paintings]);
+    const [type, setType] = useQueryState("type");
+    const [movement, setMovement] = useQueryState("movement");
+
+    const types = useMemo(() => [...new Set(paintings.map((p) => p.type))], [paintings]);
+    const movements = useMemo(() => [...new Set(paintings.map((p) => p.movement))], [paintings]);
+
+    const filters = useMemo(() => [
+        { name: "Type", options: types },
+        { name: "Mouvement", options: movements }
+    ], [types, movements]);
+
+    const filteredPaintings = useMemo(
+        () => paintings.filter((painting) =>
+            (!type || painting.type === type) &&
+            (!movement || painting.movement === movement)
+        ),
+        [paintings, type, movement]
+    );
 
     return (
-        <section className="">
-            <FilterBar filters={filters} />
+        <section>
+            <div>
+                <h2>Filtres</h2>
+                {filters.map((filter) => (
+                    <div key={filter.name}>
+                        <h3>{filter.name}</h3>
+                        <ul>
+                            <li>
+                                <button
+                                    onClick={() => setType("")}
+                                >
+                                    Tous les {filter.name.toLowerCase()}
+                                </button>
+                            </li>
+                            {filter.options.map((option) => (
+                                <li key={option}>
+                                    <button
+                                        onClick={() => setType(option)}
+                                    >
+                                        {option}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
 
+            <div>
+                {filteredPaintings.map((painting) => (
+                    <PaintingCard key={painting.id} painting={painting} />
+                ))}
+            </div>
         </section>
-    )
+    );
 }
