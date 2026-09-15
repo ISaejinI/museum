@@ -2,7 +2,6 @@
 
 import { useQueryState } from "nuqs";
 
-
 export default function FilterBar({ filters }) {
     const [type, setType] = useQueryState("type");
 
