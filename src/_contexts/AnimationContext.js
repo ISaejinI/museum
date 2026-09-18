@@ -44,3 +44,8 @@ export function AnimationProvider({ children }) {
         </AnimationContext.Provider>
     );
 }
+
+export function useAnimation() {
+  const context = useContext(AnimationContext);
+  return context;
+}
