@@ -1,6 +1,5 @@
 "use client"
 
-import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { useAnimation } from "@/_contexts/AnimationContext";
 
@@ -8,7 +7,7 @@ export default function Hero() {
     const heroRef = useRef(null);
     const heroImgRef = useRef(null);
 
-    const { gsap } = useAnimation();
+    const { gsap, useGSAP } = useAnimation();
 
     useGSAP(() => {
         gsap.to(heroImgRef.current, {

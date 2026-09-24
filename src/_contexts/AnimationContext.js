@@ -39,7 +39,7 @@ export function AnimationProvider({ children }) {
     }, []);
 
     return (
-        <AnimationContext.Provider value={{ gsap, ScrollTrigger, lenis }}>
+        <AnimationContext.Provider value={{ gsap, ScrollTrigger, lenis, useGSAP }}>
             {children}
         </AnimationContext.Provider>
     );
