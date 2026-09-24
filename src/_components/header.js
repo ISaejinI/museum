@@ -28,32 +28,32 @@ export default function NavBar() {
             const tl = gsap.timeline();
             tl.to(navContainerRef.current, {
                 x: 0,
-                duration: 0.5,
-                ease: "power2.inOut",
+                duration: 0.6,
+                ease: "power3.out",
             })
             tl.to(navImgContainerRef.current, {
                 clipPath: "inset(0 0% 0% 0)",
                 duration: 0.5,
-                ease: "power2.inOut",
+                ease: "power2.out",
             })
             tl.to(navImgRef.current, {
                 scale: 1,
                 duration: 0.5,
-                ease: "power2.inOut",
+                ease: "power2.out",
             }, "<");            
             tl.to(navItems, {
                 y: '0%',
                 duration: 0.5,
-                ease: "power2.inOut",
-                stagger: 0.1
+                ease: "power2.out",
+                stagger: 0.2
             }, "<");
 
         } else {
             const tl = gsap.timeline();
             tl.to(navContainerRef.current, {
                 x: "200%",
-                duration: 0.5,
-                ease: "power2.inOut",
+                duration: 0.6,
+                ease: "power3.in",
                 onComplete: () => {
                     gsap.set(navContainerRef.current, { display: "none" });
                 }
@@ -70,13 +70,13 @@ export default function NavBar() {
                 </button>
             </header>
 
-            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 hidden bg-amber-950 flex items-center justify-between px-16 pt-16 z-49 font-(family-name:--font-rosarivo)`} ref={navContainerRef}>
+            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 hidden bg-amber-950 flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
                 <nav>
-                    <ul ref={navRef} className="flex flex-col gap-16">
-                        <li className="overflow-hidden"><a href="/" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0"><span className="text-4xl">01</span> Accueil</a></li>
-                        <li className="overflow-hidden"><a href="/paintings" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0"><span className="text-4xl">02</span> Peintures</a></li>
-                        <li className="overflow-hidden"><a href="/about" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0"><span className="text-4xl">03</span> À propos</a></li>
-                        <li className="overflow-hidden"><a href="/tickets" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0"><span className="text-4xl">04</span> Billetterie</a></li>
+                    <ul ref={navRef} className="flex flex-col gap-16 font-(family-name:--font-rosarivo)">
+                        <li className="overflow-hidden"><a href="/" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</a></li>
+                        <li className="overflow-hidden"><a href="/paintings" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">02</span> Peintures</a></li>
+                        <li className="overflow-hidden"><a href="/about" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">03</span> À propos</a></li>
+                        <li className="overflow-hidden"><a href="/tickets" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">04</span> Billetterie</a></li>
                     </ul>
                 </nav>
                 <div ref={navImgContainerRef} className="h-full flex flex-col justify-center opacity-0">
