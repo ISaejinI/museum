@@ -22,7 +22,7 @@ export default function NavBar() {
             gsap.set(navImgRef.current, { scale: 1.2 });
             gsap.set(navContainerRef.current, { display: "flex", opacity: 1, x: "200%" });
             navItems.forEach((item) => {
-                gsap.set(item, { opacity: 1, y: '-100%' });
+                gsap.set(item, { opacity: 1, y: '100%' });
             });
 
             const tl = gsap.timeline();
