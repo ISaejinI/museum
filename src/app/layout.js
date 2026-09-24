@@ -2,6 +2,7 @@ import { Rosarivo } from "next/font/google";
 import "./globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import Header from "@/_components/header";
+import Footer from "@/_components/footer";
 import { AnimationProvider } from "@/_contexts/AnimationContext";
 
 const rosarivo = Rosarivo({
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
           <AnimationProvider>
             <Header />
             {children}
-            {/* <Footer /> */}
+            <Footer />
           </AnimationProvider>
         </NuqsAdapter>
       </body>
