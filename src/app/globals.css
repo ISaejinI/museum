@@ -13,6 +13,8 @@
   --font-mono: var(--font-geist-mono);
   --hightlight-color: #7A2A26;
   --hightlight-orange: #D17B00;
+  --other-bordeau: #3D000C;
+  --secondary-bg: #3A1A17;
 }
 
 @layer base {

@@ -63,27 +63,27 @@ export default function NavBar() {
 
     return (
         <>
-            <header className="flex items-center justify-between z-50">
+            <header className="flex items-center justify-between z-50 fixed top-0 left-0 w-screen px-16 py-8">
                 <img src="/logo.png" alt="Logo" />
                 <button onClick={() => setNavDisplayed(!navDisplayed)}>
-                    {navDisplayed ? <XMarkIcon className="size-6" /> : <Bars3Icon className="size-6" />}
+                    {navDisplayed ? <XMarkIcon className="size-12" /> : <Bars3Icon className="size-12" />}
                 </button>
             </header>
 
-            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 hidden bg-amber-950 flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
+            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 hidden bg-(--secondary-bg) flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
                 <nav>
                     <ul ref={navRef} className="flex flex-col gap-16 font-(family-name:--font-rosarivo)">
-                        <li className="overflow-hidden"><a href="/" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</a></li>
-                        <li className="overflow-hidden"><a href="/paintings" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">02</span> Peintures</a></li>
-                        <li className="overflow-hidden"><a href="/about" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">03</span> À propos</a></li>
-                        <li className="overflow-hidden"><a href="/tickets" className="block text-8xl text-amber-200 hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">04</span> Billetterie</a></li>
+                        <li className="overflow-hidden"><a href="/" className="block text-8xl text-(--foreground) hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</a></li>
+                        <li className="overflow-hidden"><a href="/paintings" className="block text-8xl text-(--foreground) hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">02</span> Peintures</a></li>
+                        <li className="overflow-hidden"><a href="/about" className="block text-8xl text-(--foreground) hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">03</span> À propos</a></li>
+                        <li className="overflow-hidden"><a href="/tickets" className="block text-8xl text-(--foreground) hover:text-amber-50 opacity-0 leading-normal"><span className="text-4xl">04</span> Billetterie</a></li>
                     </ul>
                 </nav>
                 <div ref={navImgContainerRef} className="h-full flex flex-col justify-center opacity-0">
                     <figure className="h-3/4 overflow-hidden">
                         <img className="h-full" src="/paintings/SaturnoDevorandoASuHijo.jpg" alt="Peinture mise en avant" ref={navImgRef} />
                     </figure>
-                    <p className="text-xs">Saturne dévorant un de ses fils</p>
+                    <p className="text-xs pt-2">Saturne dévorant un de ses fils</p>
                     <p className="text-xs">Francisco de Goya - 1820</p>
                 </div>
             </div>
