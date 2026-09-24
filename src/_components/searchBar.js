@@ -1,6 +1,6 @@
 "use client";
 
-import { searchableString } from "@/_helpers/FilterHelpers";
+import { searchableString } from "@/_helpers/NormalizeStringsHelpers";
 import { useState, useEffect } from "react";
 
 export default function SearchBar({paintings}) {
