@@ -1,13 +1,12 @@
 import type { MetadataRoute } from "next";
-import { slugifyString } from "@/_helpers/NormalizeStringsHelpers";
 import { AllPaintings } from "@/_helpers/APIHelpers";
 
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const objects = await AllPaintings();
-    const paintings = objects.map((painting: { title: string }) => ({
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/paintings/${slugifyString(painting.title)}`,
+    const paintings = objects.map((painting: { slug: string }) => ({
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/paintings/${painting.slug}`,
         lastModified: new Date().toISOString(),
         changeFrequency: "weekly",
         priority: 0.8,

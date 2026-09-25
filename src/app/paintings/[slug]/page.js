@@ -30,3 +30,20 @@ export default async function singlePaintingPage({ params }) {
         </>
     )
 }
+
+export async function generateMetadata({ params}) {
+    const { slug } = await params;
+    const painting = await singlePainting(slug);
+    
+    if (!painting) {
+        return {
+            title: "Painting Not Found",
+            description: "The requested painting was not found."
+        };
+    }
+
+    return {
+        title: `${painting.title} | Artheca`,
+        description: `${painting.title} - ${painting.artist} (${painting.year})`
+    }
+}

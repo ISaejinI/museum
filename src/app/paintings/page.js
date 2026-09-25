@@ -15,3 +15,11 @@ export default async function Page() {
         </main>
     )
 }
+
+export async function generateMetadata() {
+
+    return {
+        title: `Toutes les peintures | Artheca`,
+        description: `Découvrez notre collection complète de peintures.`
+    }
+}
