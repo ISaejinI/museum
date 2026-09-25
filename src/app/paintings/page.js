@@ -16,10 +16,7 @@ export default async function Page() {
     )
 }
 
-export async function generateMetadata() {
-
-    return {
-        title: `Toutes les peintures | Artheca`,
-        description: `Découvrez notre collection complète de peintures.`
-    }
+export const metadata = {
+  title: 'Toutes les peintures | Artheca',
+  description: 'Découvrez notre collection complète de peintures. Explorez les œuvres d\'artistes renommés, et plongez dans l\'univers de la peinture à travers les âges.',
 }
