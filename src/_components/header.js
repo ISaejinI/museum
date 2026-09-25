@@ -3,6 +3,7 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useRef } from 'react'
 import { useAnimation } from "@/_contexts/AnimationContext";
+import AccountButton from "@/_components/accountButton";
 
 export default function NavBar() {
     const { gsap, useGSAP } = useAnimation();
@@ -65,6 +66,7 @@ export default function NavBar() {
         <>
             <header className="flex items-center justify-between z-50 fixed top-0 left-0 w-screen px-16 py-8">
                 <img src="/logo.png" alt="Logo" />
+                <AccountButton />
                 <button onClick={() => setNavDisplayed(!navDisplayed)}>
                     {navDisplayed ? <XMarkIcon className="size-12" /> : <Bars3Icon className="size-12" />}
                 </button>
