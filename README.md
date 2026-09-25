@@ -42,3 +42,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - Permet de se focus sur les fonctionnalités essentielles comme beacoup de choses sont faites automatiquement
 - Beaucoup de convention - Facile de récupérer le projet de quelqu'un d'autre
 - Logique de composant - permet de réutiliser facilement sur d'autres sites
+
+# Conventions
+/_helpers -> ce qui transforme les données (n'aura pas de dépendance)
+/_lib -> ce avec quoi l'app communique (va avoir des dépendances externes)
+/db -> tout ce qui a trait à la structure de la db
+/_components -> les différents composants de l'app (rangés en vrac)
+/_contexts -> tout ce qui doit générer des choses globales sur l'app (import de gsap et des librairies d'animations, et d'autres trucs ... )
