@@ -7,7 +7,8 @@ export async function AllPaintings() {
 
 export async function singlePainting(slug) {
     const data = await fetch(`https://api-museum.vercel.app/objects/${slug}`);
-    const {object} = await data.json();
 
-    return (object);
+    if (!data.ok) return null;
+
+    return await data.json();
 }
