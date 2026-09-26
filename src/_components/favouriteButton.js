@@ -28,12 +28,16 @@ export default function FavouriteButton({ paintingId, initialFavourite }) {
             type="button"
             onClick={handleClick}
             aria-pressed={optimisticFavourite}
-            aria-label={optimisticFavourite ? "Retirer des favoris" : "Ajouter aux favoris"}
-            className="cursor-pointer"
+            className={`group flex w-fit cursor-pointer items-center gap-3 border px-8 py-4 text-sm uppercase tracking-widest transition-colors ${
+                optimisticFavourite
+                    ? "border-(--hightlight-color) bg-(--hightlight-color) text-background hover:bg-transparent hover:text-(--hightlight-color)"
+                    : "border-foreground hover:bg-foreground hover:text-background"
+            }`}
         >
+            {optimisticFavourite ? "Dans vos favoris" : "Ajouter aux favoris"}
             {optimisticFavourite
-                ? <HeartIconPlain className="w-6 h-6" />
-                : <HeartIcon className="w-6 h-6" />}
+                ? <HeartIconPlain className="size-4" />
+                : <HeartIcon className="size-4 transition-transform duration-300 group-hover:scale-110" />}
         </button>
     )
 }

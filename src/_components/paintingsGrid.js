@@ -3,15 +3,8 @@
 import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 
+import { paintingTypeLabel } from "@/_helpers/PaintingHelpers";
 import PaintingList from "./paintingList";
-
-const TYPE_LABELS = {
-    "painting": "Peinture",
-    "woodblock print": "Estampe",
-    "fresco": "Fresque",
-    "triptych": "Triptyque",
-    "mural": "Peinture murale",
-};
 
 function FilterChip({ isActive, onClick, children }) {
     return (
@@ -38,7 +31,7 @@ export default function PaintingsGrid({ paintings }) {
     const movements = useMemo(() => [...new Set(paintings.map((p) => p.movement))].sort((a, b) => a.localeCompare(b, "fr")), [paintings]);
 
     const filters = [
-        { name: "Type", value: type, setValue: setType, options: types, label: (option) => TYPE_LABELS[option] ?? option, allLabel: "Tous les types" },
+        { name: "Type", value: type, setValue: setType, options: types, label: paintingTypeLabel, allLabel: "Tous les types" },
         { name: "Mouvement", value: movement, setValue: setMovement, options: movements, label: (option) => option, allLabel: "Tous les mouvements" },
     ];
 
