@@ -10,9 +10,19 @@ export default async function AccountPage() {
     if (!session) redirect("/login");
 
     return (
-        <section>
-            <h1 className="text-3xl font-bold">Mon compte</h1>
-            <p>Bienvenue, {session.user.name} !</p>
-        </section>
+        <>
+            <section className="container header-spacer">
+                <h1 className="text-3xl font-bold">Mon compte</h1>
+                <p>Bienvenue, {session.user.name} !</p>
+
+                <h2>Vos informations</h2>
+                {/* Afficher le nom de l'utilisateur, il doit pouvoir le modifier */}
+                {/* Afficher le mail de l'utilisateur */}
+            </section>
+            <section>
+                <h2>Vos favoris</h2>
+                {/* Afficher la liste des favoris de l'utilisateur avec le composant PaintingList */}
+            </section>
+        </>
     )
 }

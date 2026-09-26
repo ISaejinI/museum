@@ -1,4 +1,4 @@
-import TransitionLink from "@/_components/transitionLink";
+import PaintingCard from "./paintingCard";
 
 export default function RelatedPaintings({ relatedPaintings }) {
     const centerIndex = Math.floor(relatedPaintings.length / 2);
@@ -8,15 +8,7 @@ export default function RelatedPaintings({ relatedPaintings }) {
             <ul className="relative z-10 flex items-center justify-center gap-24 px-8 pt-24 container">
                 {relatedPaintings.map((painting, index) => (
                     <li key={painting.slug}>
-                        <TransitionLink href={`/paintings/${painting.slug}`} className="group block">
-                            <img
-                                src={painting.image}
-                                alt={painting.title}
-                                className={`${index === centerIndex ? "h-96" : "h-64"} w-auto shadow-[0_24px_40px_-12px_rgba(21,12,12,0.45)] transition-transform duration-500 group-hover:-translate-y-2`}
-                            />
-                            <p className="mt-6 text-sm font-bold">{painting.title}</p>
-                            <p className="text-sm opacity-60">{painting.artist}, {painting.year}.</p>
-                        </TransitionLink>
+                        <PaintingCard painting={painting} index={index} centerIndex={centerIndex} />
                     </li>
                 ))}
             </ul>

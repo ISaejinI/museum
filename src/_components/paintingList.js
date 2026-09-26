@@ -1,0 +1,1 @@
+// En reprenant la base du composant relatedPaintings, créer le composant PaintingList. La seule différence est la disposition des oeuvres, il faudra les afficher en gruille en quinconce comme ce qui a été fait sur la page d'une oeuvre avec les images de la galerie.

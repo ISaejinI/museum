@@ -18,7 +18,6 @@ export default function FavouriteButton({ paintingId, initialFavourite }) {
                 await setFavouritePainting(paintingId, next);
                 startTransition(() => setIsFavourite(next));
             } catch (error) {
-                // useOptimistic revient automatiquement à l'état précédent
                 console.error("Impossible de mettre à jour les favoris :", error);
             }
         });
