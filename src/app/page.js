@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import Hero from "@/_components/hero";
 import RelatedPaintings from "@/_components/relatedPaintings";
 import TransitionLink from "@/_components/transitionLink";
@@ -20,24 +21,24 @@ export default async function Page() {
                         Chaque œuvre est accompagnée de son histoire, de son contexte et des détails qui la rendent unique. Flânez de salle en salle, laissez-vous surprendre et découvrez les liens qui unissent les artistes à travers les époques.
                     </p>
 
-                    <dl className="grid grid-cols-3 gap-8 border-y border-(--hightlight-orange) py-6">
-                        <div className="flex flex-col items-center">
+                    <dl className="grid grid-cols-3 gap-8 py-2">
+                        <div className="flex flex-col-reverse items-center">
                             <dt className="text-sm opacity-60">Œuvres</dt>
-                            <dd className="font-rosarivo text-5xl">39</dd>
+                            <dd className="font-rosarivo text-5xl border-b border-(--hightlight-orange) p-4 mb-2">39</dd>
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col-reverse items-center">
                             <dt className="text-sm opacity-60">Mouvements</dt>
-                            <dd className="font-rosarivo text-5xl">24</dd>
+                            <dd className="font-rosarivo text-5xl border-b border-(--hightlight-orange) p-4 mb-2">24</dd>
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col-reverse items-center">
                             <dt className="text-sm opacity-60">Siècles d'art</dt>
-                            <dd className="font-rosarivo text-5xl">6</dd>
+                            <dd className="font-rosarivo text-5xl border-b border-(--hightlight-orange) p-4 mb-2">6</dd>
                         </div>
                     </dl>
 
-                    <TransitionLink href="/about" className="group flex w-fit items-center gap-3 text-lg text-(--hightlight-color) hover:text-(--hightlight-orange) transition-colors">
+                    <TransitionLink href="/about" className="group flex w-fit items-center gap-3 border border-foreground px-8 py-4 text-sm uppercase tracking-widest transition-colors hover:bg-foreground hover:text-background">
                         En savoir plus sur le musée
-                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        <ArrowUpRightIcon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </TransitionLink>
                 </div>
                 <div className="flex-1 flex justify-center">
