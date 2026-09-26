@@ -1,13 +1,22 @@
+import FavouriteButton from "@/_components/favouriteButton";
 import RelatedPaintings from "@/_components/relatedPaintings";
 import TransitionLink from "@/_components/transitionLink";
 import { singlePainting, allPaintings, relatedPaintings } from "@/lib/api";
+import { auth } from "@/lib/auth";
+import { isFavouritePainting } from "@/lib/favourites";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 export default async function singlePaintingPage({ params }) {
     const { slug } = await params;
-    const painting = await singlePainting(slug);
+    const [painting, session] = await Promise.all([
+        singlePainting(slug),
+        auth.api.getSession({ headers: await headers() }),
+    ]);
     
     if (!painting)  notFound();
+
+    const isFavourite = session ? await isFavouritePainting(session.user.id, painting.id) : false;
 
     const allPaintingsList = await allPaintings();
     const relatedPaintingsList = relatedPaintings(allPaintingsList, painting);
@@ -27,7 +36,10 @@ export default async function singlePaintingPage({ params }) {
             <section className="painting-details container flex flex-col-reverse gap-16 mb-32">
                 <div dangerouslySetInnerHTML={{ __html: painting.description }} className="w-2/3 text-xl/normal"></div>
                 <div>
-                    <h2 className="text-6xl pb-12">Informations</h2>
+                    <div className="flex items-center gap-6 pb-12">
+                        <h2 className="text-6xl">Informations</h2>
+                        {session && <FavouriteButton paintingId={painting.id} initialFavourite={isFavourite} />}
+                    </div>
                     <table className="painting-info-table">
                         <tbody className="text-left">
                             <tr className="border-t border-(--hightlight-orange)">
