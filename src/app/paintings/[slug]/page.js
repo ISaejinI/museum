@@ -24,6 +24,7 @@ export default async function singlePaintingPage({ params }) {
 
     const allPaintingsList = await allPaintings();
     const relatedPaintingsList = relatedPaintings(allPaintingsList, painting);
+    const hasRelatedPaintings = relatedPaintingsList.length > 0;
 
     return (
         <>
@@ -117,27 +118,36 @@ export default async function singlePaintingPage({ params }) {
             )}
 
             {/* Œuvres liées */}
-            {relatedPaintingsList.length > 0 && (
-                <section className="related-paintings pt-32">
-                    <div className="container flex flex-col gap-8 px-8 mb-12 lg:flex-row lg:items-end lg:justify-between">
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-(--hightlight-orange) pb-8">À découvrir</p>
-                            <TextReveal as="h2" className="text-6xl leading-[1.1] pb-6">
-                                Dans la même <em>salle</em>
-                            </TextReveal>
-                            <p className="max-w-xl opacity-80">Retrouvez d'autres œuvres du mouvement {painting.movement} dans notre collection.</p>
-                        </div>
-                        <TransitionLink
-                            href={`/paintings?movement=${encodeURIComponent(painting.movement)}`}
-                            className="group flex w-fit items-center gap-3 border border-foreground px-8 py-4 text-sm uppercase tracking-widest transition-colors hover:bg-foreground hover:text-background"
-                        >
-                            Voir tout le mouvement
-                            <ArrowUpRightIcon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        </TransitionLink>
+            <section className="related-paintings pt-32">
+                <div className="container flex flex-col gap-8 px-8 mb-12 lg:flex-row lg:items-end lg:justify-between">
+                    <div>
+                        <p className="text-xs uppercase tracking-widest text-(--hightlight-orange) pb-8">À découvrir</p>
+                        {hasRelatedPaintings ? (
+                            <>
+                                <TextReveal as="h2" className="text-6xl leading-[1.1] pb-6">
+                                    Dans la même <em>salle</em>
+                                </TextReveal>
+                                <p className="max-w-xl opacity-80">Retrouvez d'autres œuvres du mouvement {painting.movement} dans notre collection.</p>
+                            </>
+                        ) : (
+                            <>
+                                <TextReveal as="h2" className="text-6xl leading-[1.1] pb-6">
+                                    Une salle <em>encore vide</em>
+                                </TextReveal>
+                                <p className="max-w-xl opacity-80">Aucune autre œuvre du mouvement {painting.movement} n'est exposée pour le moment dans notre collection.</p>
+                            </>
+                        )}
                     </div>
-                    <RelatedPaintings relatedPaintings={relatedPaintingsList} />
-                </section>
-            )}
+                    <TransitionLink
+                        href={hasRelatedPaintings ? `/paintings?movement=${encodeURIComponent(painting.movement)}` : "/paintings"}
+                        className="group flex w-fit items-center gap-3 border border-foreground px-8 py-4 text-sm uppercase tracking-widest transition-colors hover:bg-foreground hover:text-background"
+                    >
+                        {hasRelatedPaintings ? "Voir tout le mouvement" : "Explorer les autres mouvements"}
+                        <ArrowUpRightIcon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </TransitionLink>
+                </div>
+                <RelatedPaintings relatedPaintings={relatedPaintingsList} />
+            </section>
         </>
     )
 }
