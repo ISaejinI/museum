@@ -11,7 +11,7 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="mt-auto border-t border-(--hightlight-color) px-16 pt-16 pb-8 text-(--foreground)">
+        <footer className="mt-auto border-t border-(--hightlight-color) px-16 pt-16 pb-8 text-foreground">
             <div className="flex flex-col gap-12 lg:flex-row lg:justify-between container">
                 <div className="flex flex-col gap-4 max-w-md">
                     <img src="/logo.png" alt="Logo" className="w-fit" />
