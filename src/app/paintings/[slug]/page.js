@@ -1,11 +1,21 @@
-import { singlePainting } from "@/lib/api";
+import RelatedPaintings from "@/_components/relatedPaintings";
+import { singlePainting, allPaintings, relatedPaintings } from "@/lib/api";
 import { notFound } from "next/navigation";
 
 export default async function singlePaintingPage({ params }) {
     const { slug } = await params;
     const painting = await singlePainting(slug);
-
+    
     if (!painting)  notFound();
+
+    const allPaintingsList = await allPaintings();
+    const relatedPaintingsList = relatedPaintings(allPaintingsList, painting);
+
+    //Image descend un peu quand on scroll - passer de -mb-16 à -mb-32
+
+    //à l'arrivée sur la page, image opacity 0 et clip-path où on ne la voit pas, puis le clip-path remonte vers le haut pour la faire apparaitre en entier en même temps que l'opacité passe à 1,et le texte apparait en fade-in. Ensuite, quand on scroll, l'image descend un peu et le texte reste fixe
+
+    // faire un composant d'animation de text reveal
 
     return (
         <>
@@ -58,7 +68,7 @@ export default async function singlePaintingPage({ params }) {
                 </div>
             </section>
             <section className="related-paintings container mb-24">
-                
+                <RelatedPaintings relatedPaintings={relatedPaintingsList} />
             </section>
         </>
     )
