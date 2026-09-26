@@ -1,5 +1,4 @@
 export default function RelatedPaintings({ relatedPaintings }) {
-    // L'œuvre du milieu est mise en avant, comme la pièce maîtresse d'un mur de musée
     const centerIndex = Math.floor(relatedPaintings.length / 2);
 
     return (

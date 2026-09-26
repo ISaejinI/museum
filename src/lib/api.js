@@ -16,7 +16,7 @@ export async function singlePainting(slug) {
 
 export function randomPaintings(paintings) {
     const shuffled = [...paintings].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 5);
+    return shuffled.slice(0, 3);
 }
 
 export function relatedPaintings(paintings, currentPainting) {
