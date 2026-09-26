@@ -23,7 +23,7 @@ export default async function singlePaintingPage({ params }) {
                 <img className="w-auto h-full /*-mb-12 rounded-sm" src={painting.image} alt={painting.title} />
                 <h1 className="z-10 text-9xl font-bold text-[#212121] uppercase container text-center"> {painting.title}</h1>
             </section>
-            <section className="painting-details container flex flex-col-reverse gap-16 mb-24">
+            <section className="painting-details container flex flex-col-reverse gap-16 mb-32">
                 <div dangerouslySetInnerHTML={{ __html: painting.description }} className="w-2/3 text-xl/[1.5]"></div>
                 <div>
                     <h2 className="text-6xl pb-12">Informations</h2>
@@ -53,7 +53,7 @@ export default async function singlePaintingPage({ params }) {
                     </table>
                 </div>
             </section>
-            <section className="painting-gallery container ">
+            <section className="painting-gallery container mb-32">
                 <h2 className="text-6xl pb-12">En détail</h2>
                 <div className="grid grid-cols-2 gap-16">
                     {painting.gallery.map((src, index) => (
@@ -67,7 +67,11 @@ export default async function singlePaintingPage({ params }) {
                     ))}
                 </div>
             </section>
-            <section className="related-paintings container mb-24">
+            <section className="related-paintings">
+                <div className="container mb-12">
+                    <h2 className="text-6xl pb-4">À découvrir</h2>
+                    <p>Retrouvez d'autres œuvres du même mouvement artistique dans notre collection.</p>
+                </div>
                 <RelatedPaintings relatedPaintings={relatedPaintingsList} />
             </section>
         </>
