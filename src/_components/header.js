@@ -1,8 +1,9 @@
 "use client";
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useAnimation } from "@/_contexts/AnimationContext";
+import { useStore } from "@/lib/store";
 import AccountButton from "@/_components/accountButton";
 import TransitionLink from "@/_components/transitionLink";
 
@@ -15,7 +16,13 @@ export default function NavBar() {
     const navRef = useRef(null);
     const navImgContainerRef = useRef(null);
     const navImgRef = useRef(null);
-    
+
+    const isPageCovered = useStore((state) => state.isPageCovered);
+
+    useEffect(() => {
+        if (isPageCovered) setNavDisplayed(false);
+    }, [isPageCovered]);
+
     useGSAP(() => {
         if (navDisplayed == true) {
             const navItems = gsap.utils.toArray(navRef.current.querySelectorAll("a"));

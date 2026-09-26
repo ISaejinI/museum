@@ -25,7 +25,7 @@ export default async function singlePaintingPage({ params }) {
                 <h1 className="z-10 text-9xl font-bold text-[#212121] uppercase container text-center"> {painting.title}</h1>
             </section>
             <section className="painting-details container flex flex-col-reverse gap-16 mb-32">
-                <div dangerouslySetInnerHTML={{ __html: painting.description }} className="w-2/3 text-xl/[1.5]"></div>
+                <div dangerouslySetInnerHTML={{ __html: painting.description }} className="w-2/3 text-xl/normal"></div>
                 <div>
                     <h2 className="text-6xl pb-12">Informations</h2>
                     <table className="painting-info-table">
