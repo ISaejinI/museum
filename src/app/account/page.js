@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import AccountNameForm from "@/_components/accountNameForm";
 import PaintingList from "@/_components/paintingList";
+import SignOutButton from "@/_components/signOutButton";
 import TransitionLink from "@/_components/transitionLink";
 import { allPaintings } from "@/lib/api";
 import { auth } from "@/lib/auth";
@@ -46,6 +47,10 @@ export default async function AccountPage() {
                         </tr>
                     </tbody>
                 </table>
+
+                <div className="pt-12">
+                    <SignOutButton />
+                </div>
             </section>
 
             <section className="favourite-paintings">

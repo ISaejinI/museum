@@ -9,6 +9,7 @@ const rosarivo = Rosarivo({
   variable: "--font-rosarivo",
   subsets: ["latin"],
   weight: "400",
+  style: ["normal", "italic"],
 });
 
 export const metadata = {
