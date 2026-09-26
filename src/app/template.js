@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import { useAnimation } from "@/_contexts/AnimationContext";
+import { useStore } from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 export default function Template({ children }) {
     const { gsap, useGSAP } = useAnimation();
@@ -11,7 +13,31 @@ export default function Template({ children }) {
     const counterRef = useRef(null);
     const pageTransitionRef = useRef(null);
 
+    const router = useRouter();
+
+    const { destinationUrl, setDestinationUrl, isTransitionActive, setIsTransitionActive, isFirstLoad, setIsFirstLoad } = useStore();
+
+    //Aparition de la page
     useGSAP(() => {
+        if (isFirstLoad) return;
+            gsap.set(pageRef.current, { opacity: 0 });
+            
+    }, []);
+
+    //Disparition de la page
+    useGSAP(() => {
+        if (!isTransitionActive) return;
+
+
+    }, [destinationUrl, isTransitionActive]);
+
+    //Preloader
+    useGSAP(() => {
+        if (!isFirstLoad) {
+            gsap.set(preloaderRef.current, { autoAlpha: 0 });
+            return;
+        }
+
         const progress = { value: 0 };
         const morph = { duration: 0.7, ease: "power2.inOut" };
 
@@ -35,7 +61,7 @@ export default function Template({ children }) {
         tl.set(pageRef.current, { opacity: 1 })
             .to(preloaderRef.current, { opacity: 0, duration: 0.9, ease: "power2.inOut" })
             .set(preloaderRef.current, { display: "none" });
-    });
+    }, [isFirstRender]);
 
     return (
         <>
@@ -50,6 +76,11 @@ export default function Template({ children }) {
                 </div>
                 <span ref={counterRef} className="counter text-background font-rosarivo text-8xl">0%</span>
             </div>
+
+            <div ref={pageTransitionRef} className="fixed inset-0 z-50 bg-foreground opacity-0">
+
+            </div>
+
             <div ref={pageRef} className="opacity-0">
                 {children}
             </div>
