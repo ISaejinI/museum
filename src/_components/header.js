@@ -91,7 +91,7 @@ export default function NavBar() {
                 </button>
             </header>
 
-            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0  bg-(--secondary-bg) flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
+            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 bg-(--secondary-bg) flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
                 <nav>
                     <ul ref={navRef} className="flex flex-col gap-16 font-rosarivo">
                         <li className="overflow-hidden"><TransitionLink href="/" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</TransitionLink></li>
