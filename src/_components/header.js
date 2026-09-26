@@ -17,10 +17,15 @@ export default function NavBar() {
     const navImgContainerRef = useRef(null);
     const navImgRef = useRef(null);
 
+    const closeInstantlyRef = useRef(false);
+
     const isPageCovered = useStore((state) => state.isPageCovered);
 
     useEffect(() => {
-        if (isPageCovered) setNavDisplayed(false);
+        if (!isPageCovered || !navDisplayed) return;
+
+        closeInstantlyRef.current = true;
+        setNavDisplayed(false);
     }, [isPageCovered]);
 
     useGSAP(() => {
@@ -56,6 +61,12 @@ export default function NavBar() {
                 ease: "power2.out",
                 stagger: 0.2
             }, "<");
+
+        } else if (closeInstantlyRef.current) {
+            closeInstantlyRef.current = false;
+
+            gsap.killTweensOf(navContainerRef.current);
+            gsap.set(navContainerRef.current, { x: "200%", display: "none" });
 
         } else {
             const tl = gsap.timeline();

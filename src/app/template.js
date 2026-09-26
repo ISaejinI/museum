@@ -77,6 +77,8 @@ export default function Template({ children }) {
     useGSAP(() => {
         if (!isTransitionActive || useStore.getState().isPageCovered) return;
 
+        gsap.set(layersRef.current, { yPercent: 101 });
+        gsap.set(imagesRef.current, { yPercent: -101 });
         gsap.set(pageTransitionRef.current, { visibility: "visible", pointerEvents: "auto" });
 
         const tl = gsap.timeline({
