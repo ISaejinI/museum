@@ -1,4 +1,4 @@
-import { AllPaintings } from "@/_helpers/APIHelpers";
+import { AllPaintings } from "@/lib/api";
 import PaintingsGrid from "@/_components/paintingsGrid";
 import SearchBar from "@/_components/searchBar";
 

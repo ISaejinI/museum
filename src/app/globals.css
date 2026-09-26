@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #150C0C;
-  --foreground: #F3F1D4;
+  --background: #F3F1D4;
+  --foreground: #150C0C;
 }
 
 @theme inline {
@@ -42,12 +42,16 @@
     max-width: 1920px;
     margin: 0 auto;
   }
+
+  .header-spacer {
+    @apply pt-28;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #150C0C;
-    --foreground: #F3F1D4;
+    --background: #F3F1D4;
+    --foreground: #150C0C;
   }
 }
 

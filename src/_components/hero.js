@@ -27,11 +27,11 @@ export default function Hero() {
 
 
     return (
-        <section className="relative" ref={heroRef}>
+        <section className="relative bg-foreground" ref={heroRef}>
             <div className="h-screen w-screen">
                 <img className="mask-[url(/jar_mask.svg)] mask-no-repeat mask-size-[10%_auto] mask-center h-full w-full object-cover scale-125" src="/paintings/LaPrimavera.jpg" alt="" ref={heroImgRef} />
             </div>
-            <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-8xl w-full text-center">Welcome to the Museum</h1>
+            <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-8xl w-full text-center text-background">Welcome to the Museum</h1>
         </section>
     );
 }
