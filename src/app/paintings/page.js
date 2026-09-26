@@ -1,9 +1,9 @@
-import { AllPaintings } from "@/lib/api";
+import { allPaintings } from "@/lib/api";
 import PaintingsGrid from "@/_components/paintingsGrid";
 import SearchBar from "@/_components/searchBar";
 
 export default async function Page() {
-    const paintings = await AllPaintings();
+    const paintings = await allPaintings();
 
     return (
         <main>
