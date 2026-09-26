@@ -4,6 +4,7 @@ import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 
 import PaintingCard from "./paintingCard";
+import PaintingList from "./paintingList";
 
 export default function PaintingsGrid({ paintings }) {
     const [type, setType] = useQueryState("type");
@@ -56,11 +57,7 @@ export default function PaintingsGrid({ paintings }) {
                 ))}
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-                {filteredPaintings.map((painting) => (
-                    <PaintingCard key={painting.id} painting={painting} />
-                ))}
-            </div>
+            <PaintingList paintings={filteredPaintings} />
         </section>
     );
 }
