@@ -27,7 +27,7 @@ export default function Hero() {
 
 
     return (
-        <section className="relative bg-foreground" ref={heroRef}>
+        <section className="relative bg-foreground" data-header-theme="dark" ref={heroRef}>
             <div className="h-screen w-screen">
                 <img className="mask-[url(/jar_mask.svg)] mask-no-repeat mask-size-[10%_auto] mask-center h-full w-full object-cover scale-125" src="/paintings/LaPrimavera.jpg" alt="" ref={heroImgRef} />
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useRef, useEffect } from 'react'
+import { usePathname } from "next/navigation";
 import { useAnimation } from "@/_contexts/AnimationContext";
 import { useStore } from "@/lib/store";
 import AccountButton from "@/_components/accountButton";
@@ -20,6 +20,50 @@ export default function NavBar() {
     const closeInstantlyRef = useRef(false);
 
     const isPageCovered = useStore((state) => state.isPageCovered);
+
+    const headerRef = useRef(null);
+    const pathname = usePathname();
+    const [sectionTheme, setSectionTheme] = useState("light");
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    // Adapte la couleur du header à la section située sous lui (attribut data-header-theme)
+    useEffect(() => {
+        let frame = null;
+
+        function update() {
+            frame = null;
+            const header = headerRef.current;
+            if (!header) return;
+
+            const elements = document.elementsFromPoint(window.innerWidth / 2, header.offsetHeight / 2);
+            const section = elements
+                .filter((element) => !header.contains(element))
+                .map((element) => element.closest("[data-header-theme]"))
+                .find(Boolean);
+
+            setSectionTheme(section?.dataset.headerTheme ?? "light");
+            setIsScrolled(window.scrollY > 16);
+        }
+
+        function requestUpdate() {
+            if (frame === null) frame = requestAnimationFrame(update);
+        }
+
+        // Le contenu de la page peut changer sans scroll (streaming, loading.js, transitions)
+        const resizeObserver = new ResizeObserver(requestUpdate);
+        resizeObserver.observe(document.body);
+
+        update();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+
+        return () => {
+            resizeObserver.disconnect();
+            window.removeEventListener("scroll", requestUpdate);
+            window.removeEventListener("resize", requestUpdate);
+            if (frame !== null) cancelAnimationFrame(frame);
+        };
+    }, [pathname]);
 
     useEffect(() => {
         if (!isPageCovered || !navDisplayed) return;
@@ -81,17 +125,41 @@ export default function NavBar() {
         }
     }, { scope: navContainerRef, dependencies: [navDisplayed] });
 
+    const isDark = navDisplayed || sectionTheme === "dark";
+
     return (
         <>
-            <header className="flex items-center justify-between z-50 fixed top-0 left-0 w-screen px-16 py-8">
-                <img src="/logo.png" alt="Logo" className="w-32 h-auto" />
-                <AccountButton />
-                <button onClick={() => setNavDisplayed(!navDisplayed)}>
-                    {navDisplayed ? <XMarkIcon className="size-12" /> : <Bars3Icon className="size-12" />}
-                </button>
+            <header
+                ref={headerRef}
+                className={`fixed top-0 left-0 z-50 flex w-screen items-center justify-between px-8 transition-[padding,color,background-color] duration-500 lg:px-16 ${isScrolled ? "py-4" : "py-8"} ${isDark ? "text-background" : "text-foreground"} ${isScrolled && !isDark ? "bg-background/85 backdrop-blur-md" : "bg-transparent"}`}
+            >
+                <TransitionLink href="/" aria-label="Artheca - Accueil">
+                    <img
+                        src="/logo.png"
+                        alt=""
+                        className={`h-auto transition-[width,filter] duration-500 ${isScrolled ? "w-20" : "w-28"} ${isDark ? "invert" : ""}`}
+                    />
+                </TransitionLink>
+
+                <div className="flex items-center gap-8 lg:gap-12">
+                    <AccountButton isDark={isDark} />
+                    <button
+                        type="button"
+                        onClick={() => setNavDisplayed(!navDisplayed)}
+                        aria-expanded={navDisplayed}
+                        aria-label={navDisplayed ? "Fermer le menu" : "Ouvrir le menu"}
+                        className="group flex cursor-pointer items-center gap-4 text-xs uppercase tracking-widest"
+                    >
+                        <span className="hidden transition-colors group-hover:text-(--hightlight-orange) lg:inline">{navDisplayed ? "Fermer" : "Menu"}</span>
+                        <span className="relative block h-3 w-9" aria-hidden="true">
+                            <span className={`absolute right-0 h-px w-9 bg-current transition-all duration-500 ${navDisplayed ? "top-1/2 rotate-45" : "top-0"}`} />
+                            <span className={`absolute right-0 h-px bg-current transition-all duration-500 ${navDisplayed ? "top-1/2 w-9 -rotate-45" : "top-full w-6 group-hover:w-9"}`} />
+                        </span>
+                    </button>
+                </div>
             </header>
 
-            <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 bg-(--secondary-bg) flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
+            <div className="fixed top-0 left-0 z-49 hidden h-screen w-screen items-center justify-between bg-(--secondary-bg) px-16 pt-16 opacity-0" ref={navContainerRef}>
                 <nav>
                     <ul ref={navRef} className="flex flex-col gap-16 font-rosarivo">
                         <li className="overflow-hidden"><TransitionLink href="/" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</TransitionLink></li>
@@ -104,8 +172,8 @@ export default function NavBar() {
                     <figure className="h-3/4 overflow-hidden">
                         <img className="h-full" src="/paintings/SaturnoDevorandoASuHijo.jpg" alt="Peinture mise en avant" ref={navImgRef} />
                     </figure>
-                    <p className="text-xs pt-2">Saturne dévorant un de ses fils</p>
-                    <p className="text-xs">Francisco de Goya - 1820</p>
+                    <p className="font-rosarivo text-sm text-background pt-4">Saturne dévorant un de ses fils</p>
+                    <p className="text-xs text-background opacity-60">Francisco de Goya - 1820</p>
                 </div>
             </div>
         </>
