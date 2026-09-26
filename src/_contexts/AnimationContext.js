@@ -4,10 +4,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import Lenis from "lenis";
 import { createContext, useContext, useEffect, useState } from "react";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin, MorphSVGPlugin);
 
 const AnimationContext = createContext(null);
 
@@ -39,7 +40,7 @@ export function AnimationProvider({ children }) {
     }, []);
 
     return (
-        <AnimationContext.Provider value={{ gsap, ScrollTrigger, lenis, useGSAP }}>
+        <AnimationContext.Provider value={{ gsap, ScrollTrigger, MorphSVGPlugin, lenis, useGSAP }}>
             {children}
         </AnimationContext.Provider>
     );
