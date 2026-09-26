@@ -21,7 +21,7 @@ export default function Template({ children }) {
     useGSAP(() => {
         if (isFirstLoad) return;
             gsap.set(pageRef.current, { opacity: 0 });
-            
+
     }, []);
 
     //Disparition de la page
@@ -34,14 +34,14 @@ export default function Template({ children }) {
     //Preloader
     useGSAP(() => {
         if (!isFirstLoad) {
-            gsap.set(preloaderRef.current, { autoAlpha: 0 });
+            gsap.set(preloaderRef.current, { display: "none", autoAlpha: 0 });
             return;
         }
 
         const progress = { value: 0 };
         const morph = { duration: 0.7, ease: "power2.inOut" };
 
-        gsap.set(preloaderRef.current, { opacity: 1 });
+        gsap.set(preloaderRef.current, { display: "flex", opacity: 1 });
 
         const tl = gsap.timeline();
         tl.to("#pot1", { morphSVG: "#pot2", ...morph })
@@ -61,7 +61,7 @@ export default function Template({ children }) {
         tl.set(pageRef.current, { opacity: 1 })
             .to(preloaderRef.current, { opacity: 0, duration: 0.9, ease: "power2.inOut" })
             .set(preloaderRef.current, { display: "none" });
-    }, [isFirstRender]);
+    }, [isFirstLoad]);
 
     return (
         <>
