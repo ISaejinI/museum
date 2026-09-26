@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useRef } from 'react'
 import { useAnimation } from "@/_contexts/AnimationContext";
 import AccountButton from "@/_components/accountButton";
+import TransitionLink from "@/_components/transitionLink";
 
 export default function NavBar() {
     const { gsap, useGSAP } = useAnimation();
@@ -75,10 +76,10 @@ export default function NavBar() {
             <div className={`absolute top-0 left-0 w-screen h-screen opacity-0 hidden bg-(--secondary-bg) flex items-center justify-between px-16 pt-16 z-49`} ref={navContainerRef}>
                 <nav>
                     <ul ref={navRef} className="flex flex-col gap-16 font-rosarivo">
-                        <li className="overflow-hidden"><a href="/" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</a></li>
-                        <li className="overflow-hidden"><a href="/paintings" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">02</span> Peintures</a></li>
-                        <li className="overflow-hidden"><a href="/about" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">03</span> À propos</a></li>
-                        <li className="overflow-hidden"><a href="/tickets" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">04</span> Billetterie</a></li>
+                        <li className="overflow-hidden"><TransitionLink href="/" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">01</span> Accueil</TransitionLink></li>
+                        <li className="overflow-hidden"><TransitionLink href="/paintings" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">02</span> Peintures</TransitionLink></li>
+                        <li className="overflow-hidden"><TransitionLink href="/about" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">03</span> À propos</TransitionLink></li>
+                        <li className="overflow-hidden"><TransitionLink href="/tickets" className="block text-8xl text-background hover:text-(--hightlight-orange) transition-colors duration-500 opacity-0 leading-normal"><span className="text-4xl">04</span> Billetterie</TransitionLink></li>
                     </ul>
                 </nav>
                 <div ref={navImgContainerRef} className="h-full flex flex-col justify-center opacity-0">

@@ -1,5 +1,6 @@
 import Hero from "@/_components/hero";
 import RelatedPaintings from "@/_components/relatedPaintings";
+import TransitionLink from "@/_components/transitionLink";
 import { allPaintings, randomPaintings } from "@/lib/api";
 
 export default async function Page() {
@@ -34,10 +35,10 @@ export default async function Page() {
                         </div>
                     </dl>
 
-                    <a href="/about" className="group flex w-fit items-center gap-3 text-lg text-(--hightlight-color) hover:text-(--hightlight-orange) transition-colors">
+                    <TransitionLink href="/about" className="group flex w-fit items-center gap-3 text-lg text-(--hightlight-color) hover:text-(--hightlight-orange) transition-colors">
                         En savoir plus sur le musée
                         <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </a>
+                    </TransitionLink>
                 </div>
                 <div className="flex-1 flex justify-center">
                     <img src="/assets/diane_draw.png" alt="" className="w-auto h-[50vh] lg:h-[75vh] -scale-x-100" />

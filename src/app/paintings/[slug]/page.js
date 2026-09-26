@@ -1,4 +1,5 @@
 import RelatedPaintings from "@/_components/relatedPaintings";
+import TransitionLink from "@/_components/transitionLink";
 import { singlePainting, allPaintings, relatedPaintings } from "@/lib/api";
 import { notFound } from "next/navigation";
 
@@ -43,7 +44,7 @@ export default async function singlePaintingPage({ params }) {
                             </tr>
                             <tr className="border-t border-(--hightlight-orange)">
                                 <th className="w-64 pl-4 py-2">Mouvement</th>
-                                <td><a href={`/paintings?movement=${encodeURIComponent(painting.movement)}`}>{painting.movement}</a></td>
+                                <td><TransitionLink href={`/paintings?movement=${encodeURIComponent(painting.movement)}`}>{painting.movement}</TransitionLink></td>
                             </tr>
                             <tr className="border-y border-(--hightlight-orange)">
                                 <th className="pl-4 py-2">Lieu d'exposition</th>

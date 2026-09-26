@@ -1,3 +1,5 @@
+import TransitionLink from "@/_components/transitionLink";
+
 const navLinks = [
     { href: "/", label: "Accueil" },
     { href: "/paintings", label: "Peintures" },
@@ -23,9 +25,9 @@ export default function Footer() {
                     <ul className="flex flex-col gap-2 font-rosarivo text-xl">
                         {navLinks.map((link) => (
                             <li key={link.href}>
-                                <a href={link.href} className="hover:text-(--hightlight-orange) transition-colors">
+                                <TransitionLink href={link.href} className="hover:text-(--hightlight-orange) transition-colors">
                                     {link.label}
-                                </a>
+                                </TransitionLink>
                             </li>
                         ))}
                     </ul>
@@ -45,16 +47,16 @@ export default function Footer() {
                     <address className="flex flex-col gap-2 text-sm not-italic">
                         <span>12 rue des Beaux-Arts</span>
                         <span>75006 Paris</span>
-                        <a href="mailto:contact@artheca.fr" className="hover:text-(--hightlight-orange) transition-colors">
+                        <TransitionLink href="mailto:contact@artheca.fr" className="hover:text-(--hightlight-orange) transition-colors">
                             contact@artheca.fr
-                        </a>
+                        </TransitionLink>
                     </address>
                 </div>
             </div>
 
             <div className="flex flex-col gap-2 pt-16 text-xs opacity-60 lg:flex-row lg:justify-between container">
                 <p>© {year} Artheca. Tous droits réservés.</p>
-                <a href="/legal" className="hover:opacity-100">Mentions légales</a>
+                <TransitionLink href="/legal" className="hover:opacity-100">Mentions légales</TransitionLink>
             </div>
         </footer>
     )
