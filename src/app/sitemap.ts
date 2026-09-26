@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { AllPaintings } from "@/_helpers/APIHelpers";
+import { allPaintings } from "@/lib/api";
 
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const objects = await AllPaintings();
+    const objects = await allPaintings();
     const paintings = objects.map((painting: { slug: string }) => ({
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/paintings/${painting.slug}`,
         lastModified: new Date().toISOString(),
