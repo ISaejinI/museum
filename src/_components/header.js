@@ -65,7 +65,7 @@ export default function NavBar() {
     return (
         <>
             <header className="flex items-center justify-between z-50 fixed top-0 left-0 w-screen px-16 py-8">
-                <img src="/logo.png" alt="Logo" />
+                <img src="/logo.png" alt="Logo" className="w-32 h-auto" />
                 <AccountButton />
                 <button onClick={() => setNavDisplayed(!navDisplayed)}>
                     {navDisplayed ? <XMarkIcon className="size-12" /> : <Bars3Icon className="size-12" />}
