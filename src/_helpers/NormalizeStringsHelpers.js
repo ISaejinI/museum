@@ -1,5 +1,9 @@
 export function searchableString( string ) {
-    return string.trim().toLowerCase();
+    return string
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .trim()
+        .toLowerCase();
 };
 
 export function slugifyString(string) {
