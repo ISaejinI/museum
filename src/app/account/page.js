@@ -7,6 +7,7 @@ import TransitionLink from "@/_components/transitionLink";
 import { allPaintings } from "@/lib/api";
 import { auth } from "@/lib/auth";
 import { getFavouritePaintingIds } from "@/lib/favourites";
+import TextReveal from "@/_components/textReveal";
 
 export const metadata = { robots: { index: false, follow: false } };
 
@@ -26,7 +27,9 @@ export default async function AccountPage() {
     return (
         <main>
             <section className="header-spacer container px-8 pt-48 pb-32">
-                <h1 className="text-8xl leading-none pb-8">Bienvenue, {session.user.name}</h1>
+                <TextReveal as="h1" className="text-8xl leading-none pb-8">
+                    Bienvenue, {session.user.name}
+                </TextReveal>
                 <p className="font-rosarivo text-2xl leading-snug max-w-2xl pb-24">
                     Retrouvez vos informations personnelles et les œuvres que vous avez ajoutées à vos favoris.
                 </p>
