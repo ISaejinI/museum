@@ -5,6 +5,8 @@ export const useStore = create((set) => ({
     setDestinationUrl: (url) => set({ destinationUrl: url }),
     isTransitionActive: false,
     setIsTransitionActive: (isActive) => set({ isTransitionActive: isActive }),
+    isPageCovered: false,
+    setIsPageCovered: (isCovered) => set({ isPageCovered: isCovered }),
     isFirstLoad: true,
     setIsFirstLoad: (isFirst) => set({ isFirstLoad: isFirst }),
 }))

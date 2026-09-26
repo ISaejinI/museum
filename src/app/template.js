@@ -1,40 +1,108 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useAnimation } from "@/_contexts/AnimationContext";
 import { useStore } from "@/lib/store";
-import { useRouter } from "next/navigation";
+
+const LAYER_IMAGES = [
+    "/paintings/CreationOfAdam.jpg",
+    "/paintings/LaNascitaDiVenere.jpg",
+    "/paintings/LaBalsaDeLaMedusa.jpg",
+    "/paintings/Nighthawks.jpg",
+    "/paintings/LaPrimavera.jpg",
+];
+
+const TRANSITION = {
+    duration: 1,
+    layerDelay: 0.15,
+};
 
 export default function Template({ children }) {
-    const { gsap, useGSAP } = useAnimation();
-    
+    const { gsap, useGSAP, lenis } = useAnimation();
+
     const pageRef = useRef(null);
     const preloaderRef = useRef(null);
     const counterRef = useRef(null);
     const pageTransitionRef = useRef(null);
+    const layersRef = useRef([]);
+    const imagesRef = useRef([]);
 
     const router = useRouter();
+    const pathname = usePathname();
 
-    const { destinationUrl, setDestinationUrl, isTransitionActive, setIsTransitionActive, isFirstLoad, setIsFirstLoad } = useStore();
+    const { isTransitionActive, isFirstLoad, setIsFirstLoad } = useStore();
 
-    //Aparition de la page
-    useGSAP(() => {
-        if (isFirstLoad) return;
-            gsap.set(pageRef.current, { opacity: 0 });
+    //Apparition de la page
+    const { contextSafe } = useGSAP(() => {
+        gsap.set(layersRef.current, { yPercent: 101 });
+        gsap.set(imagesRef.current, { yPercent: -101 });
 
+        if (useStore.getState().isPageCovered) revealPage();
     }, []);
+
+    const previousPathnameRef = useRef(pathname);
+
+    useEffect(() => {
+        if (previousPathnameRef.current === pathname) return;
+        previousPathnameRef.current = pathname;
+
+        if (useStore.getState().isPageCovered) revealPage();
+    }, [pathname]);
+
+    const revealPage = contextSafe(() => {
+        const lastLayer = layersRef.current.at(-1);
+        const lastImage = imagesRef.current.at(-1);
+
+        lenis?.scrollTo(0, { immediate: true });
+
+        gsap.timeline({
+            onComplete: () => {
+                gsap.set(pageTransitionRef.current, { visibility: "hidden", pointerEvents: "none" });
+
+                const { setIsPageCovered, setIsTransitionActive, setDestinationUrl } = useStore.getState();
+                setIsPageCovered(false);
+                setIsTransitionActive(false);
+                setDestinationUrl("");
+            },
+        })
+            .set(pageTransitionRef.current, { visibility: "visible", pointerEvents: "auto" })
+            .set(layersRef.current.slice(0, -1), { yPercent: 101 })
+            .set([lastLayer, lastImage], { yPercent: 0 })
+            .to(lastLayer, { yPercent: -101, duration: TRANSITION.duration, ease: "expo.inOut" })
+            .to(lastImage, { yPercent: 101, duration: TRANSITION.duration, ease: "expo.inOut" }, "<");
+    });
 
     //Disparition de la page
     useGSAP(() => {
-        if (!isTransitionActive) return;
+        if (!isTransitionActive || useStore.getState().isPageCovered) return;
 
+        gsap.set(pageTransitionRef.current, { visibility: "visible", pointerEvents: "auto" });
 
-    }, [destinationUrl, isTransitionActive]);
+        const tl = gsap.timeline({
+            onComplete: () => {
+                const { destinationUrl, setIsPageCovered } = useStore.getState();
+                setIsPageCovered(true);
+                router.push(destinationUrl);
 
-    //Preloader
+                if (destinationUrl.split(/[?#]/)[0] === pathname) revealPage();
+            },
+        });
+
+        layersRef.current.forEach((layer, i) => {
+            tl.to([layer, imagesRef.current[i]], {
+                yPercent: 0,
+                duration: TRANSITION.duration,
+                ease: "power2.inOut",
+            }, TRANSITION.layerDelay * i);
+        });
+    }, [isTransitionActive]);
+
+    // Preloader
     useGSAP(() => {
         if (!isFirstLoad) {
-            gsap.set(preloaderRef.current, { display: "none", autoAlpha: 0 });
+            gsap.set(preloaderRef.current, { display: "none" });
+            gsap.set(pageRef.current, { opacity: 1 });
             return;
         }
 
@@ -60,8 +128,9 @@ export default function Template({ children }) {
 
         tl.set(pageRef.current, { opacity: 1 })
             .to(preloaderRef.current, { opacity: 0, duration: 0.9, ease: "power2.inOut" })
-            .set(preloaderRef.current, { display: "none" });
-    }, [isFirstLoad]);
+            .set(preloaderRef.current, { display: "none" })
+            .call(() => setIsFirstLoad(false));
+    }, []);
 
     return (
         <>
@@ -77,8 +146,12 @@ export default function Template({ children }) {
                 <span ref={counterRef} className="counter text-background font-rosarivo text-8xl">0%</span>
             </div>
 
-            <div ref={pageTransitionRef} className="fixed inset-0 z-50 bg-foreground opacity-0">
-
+            <div ref={pageTransitionRef} className="invisible pointer-events-none fixed inset-0 z-60 overflow-hidden" aria-hidden="true">
+                {LAYER_IMAGES.map((src, i) => (
+                    <div key={src} ref={(el) => (layersRef.current[i] = el)} className="absolute inset-0 overflow-hidden">
+                        <img ref={(el) => (imagesRef.current[i] = el)} src={src} alt="" className="h-full w-full object-cover" />
+                    </div>
+                ))}
             </div>
 
             <div ref={pageRef} className="opacity-0">
